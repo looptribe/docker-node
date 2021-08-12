@@ -8,11 +8,11 @@ In addition to base `node` images these images contain `rsync` and `gettext-base
 
 Build/push to docker hub:
 ```bash
-docker build -t node-14-windows-1809 14-windows-1809
+docker build -t looptribe/docker-node:14-windows-1809 14-windows-1809
 docker push looptribe/docker-node:14-windows-1809
 ```
 
 Run a container (`-it` is required to open a pseudo-tty and keep stdin open, see [docs](https://docs.docker.com/engine/reference/run/#foreground)):
 ```bash
-docker run -it node-14-windows-1809
+docker run -it looptribe/docker-node:14-windows-1809
 ```
