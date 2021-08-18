@@ -12,6 +12,14 @@ docker build -t looptribe/docker-node:14-windows-1809 14-windows-1809
 docker push looptribe/docker-node:14-windows-1809
 ```
 
+You can simply use the `build-push-sh` script:
+```bash
+./build-push.sh <tag>
+./build-push.sh 14
+./build-push.sh 16
+./build-push.sh latest
+```
+
 Run a container (`-it` is required to open a pseudo-tty and keep stdin open, see [docs](https://docs.docker.com/engine/reference/run/#foreground)):
 ```bash
 docker run -it looptribe/docker-node:14-windows-1809
