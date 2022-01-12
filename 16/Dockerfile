@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:16-stretch
 
 LABEL maintainer="andrea.ghidini@looptribe.com"
 
