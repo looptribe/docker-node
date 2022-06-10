@@ -1,6 +1,6 @@
 FROM node
 
-MAINTAINER Diego Ferri <diego.ferri@looptribe.com>
+LABEL maintainer="diego.ferri@looptribe.com"
 
 RUN apt-get update && apt-get install -y \
     gettext-base \
