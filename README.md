@@ -15,8 +15,9 @@ docker push looptribe/docker-node:14-windows-1809
 You can simply use the `build-push-sh` script:
 ```bash
 ./build-push.sh <tag>
-./build-push.sh 14
+# Examples:
 ./build-push.sh 16
+./build-push.sh 18
 ./build-push.sh latest
 ```
 
