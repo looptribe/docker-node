@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-/* eslint-disable no-undef */
+#!/usr/bin/env node
 
 const {promises: fs} = require('fs');
 const process = require('process');

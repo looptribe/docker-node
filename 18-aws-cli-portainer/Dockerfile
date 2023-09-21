@@ -18,4 +18,4 @@ RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -O awscliv2.zi
 RUN unzip awscliv2.zip
 RUN aws/install
 
-COPY portainer.js .
+COPY --chmod=755 portainer-deploy.js /usr/bin/portainer-deploy
