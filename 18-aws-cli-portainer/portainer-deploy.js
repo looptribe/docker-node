@@ -3,13 +3,13 @@
 const {promises: fs} = require('fs');
 const process = require('process');
 
-const API_KEY = process.env.PORTAINER_ACCESS_TOKEN;
-const API_URL = process.env.PORTAINER_URL || 'https://portainer.looptribe.com/api';
-const STACK_ID = Number(process.env.PORTAINER_STACK_ID) || 0;
-const STACK_FILE = 'stack.yml';
+const PORTAINER_ACCESS_TOKEN = process.env.PORTAINER_ACCESS_TOKEN;
+const PORTAINER_API_URL = process.env.PORTAINER_API_URL;
+const PORTAINER_STACK_ID = Number(process.env.PORTAINER_STACK_ID) || 0;
+const PORTAINER_STACK_FILE = process.env.PORTAINER_STACK_FILE || 'stack.yml';
 
 const callApi = (url, options = {}) => {
-    return fetch(API_URL + url, {...options, headers: {...options.headers, 'X-API-Key': API_KEY}}).then(async (x) => {
+    return fetch(PORTAINER_API_URL + url, {...options, headers: {...options.headers, 'X-API-Key': PORTAINER_ACCESS_TOKEN}}).then(async (x) => {
         if (x.ok) {
             return x.json();
         } else {
@@ -29,21 +29,25 @@ const portainerPut = (url, data, options = {}) => callApi(url, {
 });
 
 const deploy = async () => {
-    if (!STACK_ID) {
+    if (!PORTAINER_STACK_ID) {
         console.error('Environment variable PORTAINER_STACK_ID not set');
         process.exit(1);
     }
-    if (!API_KEY) {
+    if (!PORTAINER_API_URL) {
+        console.error('Environment variable PORTAINER_API_URL not set');
+        process.exit(1);
+    }
+    if (!PORTAINER_ACCESS_TOKEN) {
         console.error('Environment variable PORTAINER_ACCESS_TOKEN not set');
         process.exit(1);
     }
 
-    const stackFile = (await fs.readFile(STACK_FILE)).toString('utf8');
+    const stackFile = (await fs.readFile(PORTAINER_STACK_FILE)).toString('utf8');
 
     console.log('Retrieving stack info...');
-    const stackInfo = await portainerGet(`/stacks/${STACK_ID}`);
+    const stackInfo = await portainerGet(`/stacks/${PORTAINER_STACK_ID}`);
     console.log('Publishing new stack...');
-    const result = await portainerPut(`/stacks/${STACK_ID}?endpointId=${stackInfo.EndpointId}`, {
+    const result = await portainerPut(`/stacks/${PORTAINER_STACK_ID}?endpointId=${stackInfo.EndpointId}`, {
         env: stackInfo.Env,
         pullImage: true,
         stackFileContent: stackFile,
