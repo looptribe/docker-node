@@ -57,6 +57,7 @@ const deploy = async () => {
     console.log('Publishing new stack...');
     const result = await portainerPut(`/stacks/${PORTAINER_STACK_ID}?endpointId=${stackInfo.EndpointId}`, {
         env: stackInfo.Env,
+        prune: true,
         pullImage: true,
         stackFileContent: stackFile,
     });
